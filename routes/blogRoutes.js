@@ -2,7 +2,7 @@ const express = require("express");
 const Blogs = require("./../models/blogs");
 const router = express.Router();
 
-// Getting all
+// Getting all blogs
 router.get("/", async (req, res) => {
   try {
     const blogsData = await Blogs.find();
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 
 // Getting One
 router.get("/:id", getBlogDetail, (req, res) => {
-  res.status(200).json({ message: "Successfully fetch", data: res.blog });
+  res.status(200).json({ message: "Successfully fetched", data: res.blog });
 });
 
 // Creating one
@@ -67,7 +67,7 @@ async function getBlogDetail(req, res, next) {
   try {
     blog = await Blogs.findById(req.params.id);
     if (blog == null) {
-      return res.status(404).json({ message: "Cannot find subscriber" });
+      return res.status(404).json({ message: "Cannot find the blog" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
