@@ -1,4 +1,5 @@
 const express = require("express");
+const { default: mongoose } = require("mongoose");
 const Blogs = require("./../models/blogs");
 const router = express.Router();
 
@@ -65,7 +66,10 @@ router.delete("/:id", getBlogDetail, async (req, res) => {
 async function getBlogDetail(req, res, next) {
   let blog;
   try {
-    blog = await Blogs.findById(req.params.id);
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ message: "Enter a valid ObjectId" });
+    }
+    blog = await Blogs.findById(mongoose.Types.ObjectId(req.params.id));
     if (blog == null) {
       return res.status(404).json({ message: "Cannot find the blog" });
     }
