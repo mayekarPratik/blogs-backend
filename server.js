@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 // Connect to MongoDB Atlas
-mongoose.connect("mongodb://localhost/blog", {
+mongoose.connect("mongodb://localhost/blog", {                   //url would come from env later
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
